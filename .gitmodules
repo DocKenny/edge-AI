@@ -1,0 +1,3 @@
+[submodule "edge-webui"]
+	path = edge-webui
+	url = https://github.com/DocKenny/edge-webui.git
