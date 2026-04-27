@@ -1,0 +1,25 @@
+yamlservices:
+  ollama:
+    image: ollama/ollama:rocm
+    container_name: ollama-rocm
+    restart: always
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: always
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    depends_on:
+      - ollama
+
+volumes:
+  ollama:
