@@ -1,4 +1,4 @@
-yamlservices:
+services:
   ollama:
     image: ollama/ollama:rocm
     container_name: ollama-rocm
@@ -11,11 +11,11 @@ yamlservices:
     volumes:
       - ollama:/root/.ollama
 
-  cloudflared:
+  coudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
     restart: always
-    command: tunnel --no-autoupdate run
+    command: tunnel --no-autoupdate run --url http://ollama-rocm:11434
     environment:
       - TUNNEL_TOKEN=${TUNNEL_TOKEN}
     depends_on:
